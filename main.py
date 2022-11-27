@@ -41,13 +41,13 @@ scrambled_queue.put(scrambled_cube)
 
 num_cubes = 0
 final_solutions = []
-current_max_depth = 0
+depth_next_queued = 0
 
 # pruning
 odd_status = bool(max_depth_allowed % 2)
 
 # search algorithm
-while current_max_depth < converted_max_depth_allowed:
+while depth_next_queued < converted_max_depth_allowed:
 
     # take a cube from queue and make adjacency list
     got_cube = solved_queue.get()
@@ -96,7 +96,7 @@ while current_max_depth < converted_max_depth_allowed:
         solved_queue.put(cube)
 
     # while condition
-    current_max_depth = solved_queue.queue[0].depth
+    depth_next_queued = solved_queue.queue[0].depth
 
     # ____________________________________ SCRAMBLED SIDE ____________________________________ #
 
