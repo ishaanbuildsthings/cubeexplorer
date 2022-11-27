@@ -26,6 +26,13 @@ def apply_alg(algorithm, cube):
         move_dict[move]()
 
 
+# dependency of cube class
+def simplify_move(move):
+    if len(move) == 2:
+        move = move[0:1]
+    return move
+
+
 # dependency of invert_move_list
 def invert_move(move):
     if move[-1] == "'":
@@ -108,4 +115,3 @@ def clean_up_intersection(lista, listb):
 
         list2 = list2[1:]  # remove list2 starting element
         return clean_up_intersection(list1, list2)
-

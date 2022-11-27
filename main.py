@@ -138,6 +138,7 @@ while current_max_depth < max_depth_allowed:
         print_line()
         scrambled_queue.put(scramble_cube)
 
+    # while condition
     current_max_depth = max(solved_queue.queue[0].depth, scrambled_queue.queue[0].depth)
 
 # prints final solutions

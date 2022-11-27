@@ -1,5 +1,6 @@
 # imports
 from copy import deepcopy
+from alg_handler import simplify_move
 
 # constants
 SOLVED_STICKER_STATE = ['⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜',
@@ -381,67 +382,66 @@ class Cube:
         self.update_tuple()
 
     def create_adj_list(self):
+
         adj_list = []
 
-        cube_r = deepcopy(self)
-        cube_r.r_move()
-        cube_r2 = deepcopy(self)
-        cube_r2.r2_move()
-        cube_r_prime = deepcopy(self)
-        cube_r_prime.r_prime_move()
-
-        cube_u = deepcopy(self)
-        cube_u.u_move()
-        cube_u2 = deepcopy(self)
-        cube_u2.u2_move()
-        cube_u_prime = deepcopy(self)
-        cube_u_prime.u_prime_move()
-
-        cube_f = deepcopy(self)
-        cube_f.f_prime_move()
-        cube_f2 = deepcopy(self)
-        cube_f2.f2_move()
-        cube_f_prime = deepcopy(self)
-        cube_f_prime.f_prime_move()
-
-        cube_b = deepcopy(self)
-        cube_b.b_move()
-        cube_b2 = deepcopy(self)
-        cube_b2.b2_move()
-        cube_b_prime = deepcopy(self)
-        cube_b_prime.b_prime_move()
-
-        cube_l = deepcopy(self)
-        cube_l.l_move()
-        cube_l2 = deepcopy(self)
-        cube_l2.l2_move()
-        cube_l_prime = deepcopy(self)
-        cube_l_prime.l_prime_move()
-
-        cube_d = deepcopy(self)
-        cube_d.d_move()
-        cube_d2 = deepcopy(self)
-        cube_d2.d2_move()
-        cube_d_prime = deepcopy(self)
-        cube_d_prime.d_prime_move()
-
-        mapping = {
-            "U": [cube_u, cube_u2, cube_u_prime],
-            "F": [cube_f, cube_f2, cube_f_prime],
-            "R": [cube_r, cube_r2, cube_r_prime],
-            "B": [cube_b, cube_b2, cube_b_prime],
-            "L": [cube_l, cube_l2, cube_l_prime],
-            "D": [cube_d, cube_d2, cube_d_prime],
-        }
-
-        if len(self.moves_applied) == 0:  # if no moves have been applied
-            for key in mapping:
-                if key in self.allowed_moves_for_chain:
-                    adj_list.extend(mapping[key])
+        if len(self.moves_applied) != 0:
+            simplified_last_move = simplify_move(self.moves_applied[-1])
         else:
-            last_move_type = self.moves_applied[-1][0]
-            for key in mapping:
-                if key in self.allowed_moves_for_chain and key != last_move_type:
-                    adj_list.extend(mapping[key])
+            simplified_last_move = ""
+
+        if "R" in self.allowed_moves_for_chain and "R" != simplified_last_move:
+            cube_r = deepcopy(self)
+            cube_r.r_move()
+            cube_r2 = deepcopy(self)
+            cube_r2.r2_move()
+            cube_r_prime = deepcopy(self)
+            cube_r_prime.r_prime_move()
+            adj_list.extend([cube_r, cube_r2, cube_r_prime])
+
+        if "U" in self.allowed_moves_for_chain and "U" != simplified_last_move:
+            cube_u = deepcopy(self)
+            cube_u.u_move()
+            cube_u2 = deepcopy(self)
+            cube_u2.u2_move()
+            cube_u_prime = deepcopy(self)
+            cube_u_prime.u_prime_move()
+            adj_list.extend([cube_u, cube_u2, cube_u_prime])
+
+        if "F" in self.allowed_moves_for_chain and "F" != simplified_last_move:
+            cube_f = deepcopy(self)
+            cube_f.f_prime_move()
+            cube_f2 = deepcopy(self)
+            cube_f2.f2_move()
+            cube_f_prime = deepcopy(self)
+            cube_f_prime.f_prime_move()
+            adj_list.extend([cube_f, cube_f2, cube_f_prime])
+
+        if "B" in self.allowed_moves_for_chain and "B" != simplified_last_move:
+            cube_b = deepcopy(self)
+            cube_b.b_move()
+            cube_b2 = deepcopy(self)
+            cube_b2.b2_move()
+            cube_b_prime = deepcopy(self)
+            cube_b_prime.b_prime_move()
+            adj_list.extend([cube_b, cube_b2, cube_b_prime])
+
+        if "L" in self.allowed_moves_for_chain and "L" != simplified_last_move:
+            cube_l = deepcopy(self)
+            cube_l.l_move()
+            cube_l2 = deepcopy(self)
+            cube_l2.l2_move()
+            cube_l_prime = deepcopy(self)
+            cube_l_prime.l_prime_move()
+            adj_list.extend([cube_l, cube_l2, cube_l_prime])
+
+        if "D" in self.allowed_moves_for_chain and "D" != simplified_last_move:
+            cube_d = deepcopy(self)
+            cube_d.d_move()
+            cube_d2 = deepcopy(self)
+            cube_d2.d2_move()
+            cube_d_prime = deepcopy(self)
+            cube_d_prime.d_prime_move()
+            adj_list.extend([cube_d, cube_d2, cube_d_prime])
 
         return adj_list
