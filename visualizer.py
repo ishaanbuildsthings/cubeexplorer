@@ -43,30 +43,6 @@ def exists_in_hash(hashtype):
     print(f"This state already exists in the {hashtype} hash, solution found!")
 
 
-#
-def print_solution(bfs_system, cube, cube_state, opposite_state):
-    print(f"These moves should bring us to the current state from the {cube_state} cube: "
-          f"{cube.moves_applied}")
-
-    print(f"These moves are how we reached the state from the {opposite_state} cube:"
-          f"{bfs_system.hash[cube.get_tuple()]}")
-
-    if cube_state == "scrambled":
-        list_to_be_conversed = copy.deepcopy(bfs_system.hash[cube.get_tuple()])
-        list_to_be_conversed = alg_handler.reverse_and_invert_move_list(list_to_be_conversed)
-        final_solution = alg_handler.clean_up_intersection(cube.moves_applied, list_to_be_conversed)
-    elif cube_state == "solved":
-        list_to_be_conversed = copy.deepcopy(cube.moves_applied)
-        list_to_be_conversed = alg_handler.reverse_and_invert_move_list(list_to_be_conversed)
-        final_solution = alg_handler.clean_up_intersection(bfs_system.hash[cube.get_tuple()], list_to_be_conversed)
-    else:
-        return print("Error, invalid cube state")
-
-    print(f"The final solution is {final_solution}")
-
-    return final_solution
-
-
 # takes a list containing list solutions and prints each one
 def solutions_to_string(solutions_list):
     for solution in solutions_list:

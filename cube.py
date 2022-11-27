@@ -381,6 +381,7 @@ class Cube:
 
         self.update_tuple()
 
+    # takes a cube and returns valid adjacent states
     def create_adj_list(self):
 
         adj_list = []
