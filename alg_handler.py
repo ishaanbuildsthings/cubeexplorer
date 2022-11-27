@@ -1,6 +1,7 @@
 import copy
 
 
+# applies an algorithm to a cube
 def apply_alg(algorithm, cube):
     move_dict = {"U": cube.u_move,
                  "U'": cube.u_prime_move,
@@ -34,6 +35,7 @@ def invert_move(move):
     return move
 
 
+# parsing functions
 def double_to_normal(move):
     return move[0:1]
 
@@ -68,6 +70,7 @@ def reverse_and_invert_move_list(move_list):
     return move_list
 
 
+# connects the left and right ends of move lists correctly and returns the result
 def clean_up_intersection(lista, listb):
     list1 = copy.deepcopy(lista)
     list2 = copy.deepcopy(listb)
