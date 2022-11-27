@@ -1,21 +1,24 @@
-import visualizer  # for testing
+# imports
 from cube import Cube
 from visualizer import *
 import alg_handler
-from bfs_system import BfsSystem
 from queue import Queue
 
-# creating cubes
+
+# ask user for information and create cubes
 solved_cube = Cube()
-input_algorithm = input("What's your scramble?").split(" ")
 scrambled_cube = Cube()
+input_algorithm = input("What's your scramble?").split(" ")
+
 alg_handler.apply_alg(input_algorithm, scrambled_cube)
 scrambled_cube.moves_applied = []
 allowed_moves = input("What move types are allowed?").split(" ")
 scrambled_cube.allowed_moves_for_chain = allowed_moves
 solved_cube.allowed_moves_for_chain = allowed_moves
+max_depth_allowed = int(input("What is the maximum algorithm depth?"))
 
 
+# presenting initial cubes
 print(f"Here are your cubes:")
 cube_to_visual(solved_cube)
 print("Solved Cube")
@@ -26,21 +29,22 @@ print_line()
 print_line()
 print_line()
 
+
+# setting up main algorithm
 solved_hash = {}
 scrambled_hash = {}
-
 solved_queue = Queue()
 scrambled_queue = Queue()
-
 solved_queue.put(solved_cube)
 scrambled_queue.put(scrambled_cube)
-
 counter = 0
 merges = []
+current_max_depth = 0
 
-for x in range(3000):
-    print(x)
+while current_max_depth <= max_depth_allowed:
+
     got_cube = solved_queue.get()  # get cube in queue
+    current_max_depth = got_cube.depth
 
     adj_list = got_cube.create_adj_list()  # R R2 R' U U2 U'
 
