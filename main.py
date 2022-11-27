@@ -8,7 +8,8 @@ import math
 # ask user for information
 input_algorithm = input("What's your scramble?").split(" ")
 allowed_moves = input("What move types are allowed?").split(" ")
-max_depth_allowed = int(math.ceil((float(input("What is the maximum algorithm depth?"))/2)))
+max_depth_allowed = int(input("What is the maximum algorithm depth?"))
+converted_max_depth_allowed = int(math.ceil((float(max_depth_allowed)/2)))
 
 # create solved cube
 solved_cube = Cube()
@@ -42,8 +43,11 @@ num_cubes = 0
 final_solutions = []
 current_max_depth = 0
 
+# pruning
+odd_status = bool(max_depth_allowed % 2)
+
 # search algorithm
-while current_max_depth < max_depth_allowed:
+while current_max_depth < converted_max_depth_allowed:
 
     # take a cube from queue and make adjacency list
     got_cube = solved_queue.get()
@@ -91,9 +95,17 @@ while current_max_depth < max_depth_allowed:
         print_line()
         solved_queue.put(cube)
 
+    # while condition
+    current_max_depth = solved_queue.queue[0].depth
+
     # ____________________________________ SCRAMBLED SIDE ____________________________________ #
 
     scrambled_got_cube = scrambled_queue.get()
+
+    # pruning
+    if odd_status and (scrambled_got_cube.depth == converted_max_depth_allowed - 1):
+        continue
+
     scrambled_adj_list = scrambled_got_cube.create_adj_list()
 
     for scramble_cube in scrambled_adj_list:
@@ -104,7 +116,7 @@ while current_max_depth < max_depth_allowed:
         scramble_cube.allowed_moves_for_chain = scramble_cube.parent_cube.allowed_moves_for_chain
 
         # print info about cube
-        print(f"Started from solved cube")
+        print(f"Started from scrambled cube")
         cube_to_visual(scramble_cube)
         print(f"Count: {num_cubes}")
         print_depth(scramble_cube)
@@ -112,7 +124,7 @@ while current_max_depth < max_depth_allowed:
 
         # handles if the cube state has/hasn't been reached from the scrambled (same) end
         if scramble_cube.tuple not in scrambled_hash:
-            print("This cube state hasn't been reached from the solved end before, hashing now...")
+            print("This cube state hasn't been reached from the scrambled end before, hashing now...")
             scrambled_hash[scramble_cube.tuple] = [scramble_cube.moves_applied]
 
         else:
@@ -137,9 +149,6 @@ while current_max_depth < max_depth_allowed:
         # misc
         print_line()
         scrambled_queue.put(scramble_cube)
-
-    # while condition
-    current_max_depth = max(solved_queue.queue[0].depth, scrambled_queue.queue[0].depth)
 
 # prints final solutions
 solutions_to_string(final_solutions)
