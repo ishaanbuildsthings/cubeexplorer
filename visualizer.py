@@ -2,6 +2,7 @@ import alg_handler
 import copy
 
 
+# takes a cube as the input and prints a 2d representation in the console
 def cube_to_visual(cube):
     tuple = cube.tuple
     print(f"        {tuple[0][0]}{tuple[0][1]}{tuple[0][2]}")
@@ -20,18 +21,23 @@ def cube_to_visual(cube):
     print(f"        {tuple[5][6]}{tuple[5][7]}{tuple[5][8]}")
 
 
+# prints a line for spacing purposes
 def print_line():
     print("__________________________________")
 
 
+# prints the depth of moves applied to a given cube from the initial state
 def print_depth(cube):
     print(f"Depth: {cube.depth}")
 
 
+# this function prints the moves applied to a given cube relative to the initial state
 def print_moves(cube):
     print(" ".join(cube.moves_applied))
 
 
+# prints if a cube state already exists in a given hashtype, usually the opposite type in the
+# bidirectional search, which is either solved or scrambled
 def exists_in_hash(hashtype):
     print(f"This state already exists in the {hashtype} hash, solution found!")
 
@@ -59,6 +65,7 @@ def print_solution(bfs_system, cube, cube_state, opposite_state):
     return final_solution
 
 
+# takes a list containing list solutions and prints each one
 def merges_to_string(merge):
     for solution in merge:
         print(" ".join(solution))
