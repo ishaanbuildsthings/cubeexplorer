@@ -1,0 +1,3 @@
+1. Fix move efficiency for moves like B'. Directly modify cube instead of doing B + B + B
+2. Redesign setup tuple methods, instead of updating the tuple each move it could be done once before it's hashed.
+3. Implement node class

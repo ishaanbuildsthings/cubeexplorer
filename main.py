@@ -40,8 +40,8 @@ scrambled_queue = Queue()
 scrambled_queue.put(scrambled_cube)
 
 num_cubes = 0
-final_solutions = []
 depth_next_queued = 0
+final_solutions = []
 
 # pruning
 odd_status = bool(max_depth_allowed % 2)
