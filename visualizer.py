@@ -21,9 +21,10 @@ def cube_to_visual(cube):
     print(f"        {tuple[5][6]}{tuple[5][7]}{tuple[5][8]}")
 
 
-# prints a line for spacing purposes
-def print_line():
-    print("__________________________________")
+# prints n line(s) for spacing purposes
+def print_line(n=1):
+    for x in range(n):
+        print("__________________________________")
 
 
 # prints the depth of moves applied to a given cube from the initial state
@@ -31,7 +32,7 @@ def print_depth(cube):
     print(f"Depth: {cube.depth}")
 
 
-# this function prints the moves applied to a given cube relative to the initial state
+# prints the moves applied to a given cube relative to the initial state
 def print_moves(cube):
     print(" ".join(cube.moves_applied))
 
@@ -42,6 +43,7 @@ def exists_in_hash(hashtype):
     print(f"This state already exists in the {hashtype} hash, solution found!")
 
 
+#
 def print_solution(bfs_system, cube, cube_state, opposite_state):
     print(f"These moves should bring us to the current state from the {cube_state} cube: "
           f"{cube.moves_applied}")
@@ -66,6 +68,6 @@ def print_solution(bfs_system, cube, cube_state, opposite_state):
 
 
 # takes a list containing list solutions and prints each one
-def merges_to_string(merge):
-    for solution in merge:
+def solutions_to_string(solutions_list):
+    for solution in solutions_list:
         print(" ".join(solution))
