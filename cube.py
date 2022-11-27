@@ -1,7 +1,7 @@
+# imports
 from copy import deepcopy
-import visualizer  # for debugging
-import alg_handler  # for debugging
 
+# constants
 SOLVED_STICKER_STATE = ['⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜',
                         '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥',
                         '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦',
@@ -433,7 +433,6 @@ class Cube:
             "L": [cube_l, cube_l2, cube_l_prime],
             "D": [cube_d, cube_d2, cube_d_prime],
         }
-
 
         if len(self.moves_applied) == 0:  # if no moves have been applied
             for key in mapping:
