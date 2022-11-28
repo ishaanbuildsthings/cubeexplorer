@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 import json
+from main import solve
 
 app = Flask(__name__)
 CORS(app)
@@ -13,7 +14,7 @@ def handle_solve():
     if scramble == None or max_depth == None or move_types == None:
         return "Please provide scramble, max_depth, and move_types", 400
     
-    # TODO: pass scramble to solver and return the result
-    solution = "R U R' U'"
+    solution = solve(scramble, move_types, max_depth)
+    print(f"solution: {solution}")
 
     return json.dumps(solution)
