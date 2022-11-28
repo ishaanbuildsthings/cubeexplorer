@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -15,4 +16,4 @@ def handle_solve():
     # TODO: pass scramble to solver and return the result
     solution = "R U R' U'"
 
-    return solution
+    return json.dumps(solution)
