@@ -5,6 +5,7 @@ from alg_handler import *
 from queue import Queue
 import math
 
+
 # ask user for information
 # input_algorithm = input("What's your scramble?").split(" ")
 # allowed_moves = input("What move types are allowed?").split(" ")
@@ -19,6 +20,7 @@ def join_solutions(solutions):
         joined_solutions.append(' '.join(soln))
     return joined_solutions
 
+
 # generates all possible solutions for a scramble, subject to the given
 # move_types and max_depth.
 # scramble and move_types must be delimited by ","
@@ -26,7 +28,7 @@ def solve(scramble, move_types, max_depth):
     input_algorithm = scramble.split(",")
     allowed_moves = move_types.split(",")
     max_depth_allowed = int(max_depth)
-    converted_max_depth_allowed = int(math.ceil((float(max_depth_allowed)/2)))
+    converted_max_depth_allowed = int(math.ceil((float(max_depth_allowed) / 2)))
 
     # create solved cube
     solved_cube = Cube()

@@ -19,18 +19,18 @@ class Cube:
         self.depth = 0
         self.allowed_moves_for_chain = ["U", "F", "R", "B", "L", "D"]
 
-        self.uFace = SOLVED_STICKER_STATE[0:9]
-        self.fFace = SOLVED_STICKER_STATE[9:18]
-        self.rFace = SOLVED_STICKER_STATE[18:27]
-        self.bFace = SOLVED_STICKER_STATE[27:36]
-        self.lFace = SOLVED_STICKER_STATE[36:45]
-        self.dFace = SOLVED_STICKER_STATE[45:54]
+        self.u_face = SOLVED_STICKER_STATE[0:9]
+        self.f_face = SOLVED_STICKER_STATE[9:18]
+        self.r_face = SOLVED_STICKER_STATE[18:27]
+        self.b_face = SOLVED_STICKER_STATE[27:36]
+        self.l_face = SOLVED_STICKER_STATE[36:45]
+        self.d_face = SOLVED_STICKER_STATE[45:54]
         self.tuple = ()  # initialized to nothing as only update_tuple will be used
 
     # exists for hashing, not to be used otherwise
     def update_tuple(self):
-        self.tuple = (tuple(self.uFace), tuple(self.fFace), tuple(self.rFace),
-                      tuple(self.bFace), tuple(self.lFace), tuple(self.dFace))
+        self.tuple = (tuple(self.u_face), tuple(self.f_face), tuple(self.r_face),
+                      tuple(self.b_face), tuple(self.l_face), tuple(self.d_face))
         return self.tuple
 
     def rotate_face(self, face):
@@ -55,74 +55,74 @@ class Cube:
     def u_move(self):
 
         # bars
-        tempF = self.fFace[0:3]
-        tempR = self.rFace[0:3]
-        tempB = self.bFace[0:3]
-        tempL = self.lFace[0:3]
-        self.lFace[0:3] = tempF
-        self.bFace[0:3] = tempL
-        self.rFace[0:3] = tempB
-        self.fFace[0:3] = tempR
+        temp_f = self.f_face[0:3]
+        temp_r = self.r_face[0:3]
+        temp_b = self.b_face[0:3]
+        temp_l = self.l_face[0:3]
+        self.l_face[0:3] = temp_f
+        self.b_face[0:3] = temp_l
+        self.r_face[0:3] = temp_b
+        self.f_face[0:3] = temp_r
 
         # face
-        self.rotate_face(self.uFace)
+        self.rotate_face(self.u_face)
 
         self.moves_applied.append("U")
 
     def u2_move(self):
-        tempF = self.fFace[0:3]
-        tempR = self.rFace[0:3]
-        tempB = self.bFace[0:3]
-        tempL = self.lFace[0:3]
+        temp_f = self.f_face[0:3]
+        temp_r = self.r_face[0:3]
+        temp_b = self.b_face[0:3]
+        temp_l = self.l_face[0:3]
 
-        self.lFace[0:3] = tempR
-        self.bFace[0:3] = tempF
-        self.rFace[0:3] = tempL
-        self.fFace[0:3] = tempB
+        self.l_face[0:3] = temp_r
+        self.b_face[0:3] = temp_f
+        self.r_face[0:3] = temp_l
+        self.f_face[0:3] = temp_b
 
-        self.rotate_face(self.uFace)
-        self.rotate_face(self.uFace)
+        self.rotate_face(self.u_face)
+        self.rotate_face(self.u_face)
 
         self.moves_applied.append("U2")
 
     def u_prime_move(self):
-        tempF = self.fFace[0:3]
-        tempR = self.rFace[0:3]
-        tempB = self.bFace[0:3]
-        tempL = self.lFace[0:3]
+        temp_f = self.f_face[0:3]
+        temp_r = self.r_face[0:3]
+        temp_b = self.b_face[0:3]
+        temp_l = self.l_face[0:3]
 
-        self.lFace[0:3] = tempB
-        self.bFace[0:3] = tempR
-        self.rFace[0:3] = tempF
-        self.fFace[0:3] = tempL
+        self.l_face[0:3] = temp_b
+        self.b_face[0:3] = temp_r
+        self.r_face[0:3] = temp_f
+        self.f_face[0:3] = temp_l
 
-        self.rotate_face(self.uFace)
-        self.rotate_face(self.uFace)
-        self.rotate_face(self.uFace)
+        self.rotate_face(self.u_face)
+        self.rotate_face(self.u_face)
+        self.rotate_face(self.u_face)
 
         self.moves_applied.append("U'")
 
     def f_move(self):
 
         # bars
-        tempU = self.uFace[8:5:-1]
-        tempR = self.rFace[6] + self.rFace[3] + self.rFace[0]
-        tempD = self.dFace[0:3]
-        tempL = self.lFace[2] + self.lFace[5] + self.lFace[8]
+        temp_u = self.u_face[8:5:-1]
+        temp_r = self.r_face[6] + self.r_face[3] + self.r_face[0]
+        temp_d = self.d_face[0:3]
+        temp_l = self.l_face[2] + self.l_face[5] + self.l_face[8]
 
-        self.uFace[8:5:-1] = tempL
-        self.dFace[0:3] = tempR
+        self.u_face[8:5:-1] = temp_l
+        self.d_face[0:3] = temp_r
 
-        self.rFace[6] = tempU[0]
-        self.rFace[3] = tempU[1]
-        self.rFace[0] = tempU[2]
+        self.r_face[6] = temp_u[0]
+        self.r_face[3] = temp_u[1]
+        self.r_face[0] = temp_u[2]
 
-        self.lFace[2] = tempD[0]
-        self.lFace[5] = tempD[1]
-        self.lFace[8] = tempD[2]
+        self.l_face[2] = temp_d[0]
+        self.l_face[5] = temp_d[1]
+        self.l_face[8] = temp_d[2]
 
         # face
-        self.rotate_face(self.fFace)
+        self.rotate_face(self.f_face)
 
         self.moves_applied.append("F")
 
@@ -147,56 +147,56 @@ class Cube:
     def r_move(self):
 
         # bars
-        tempU = self.uFace[2] + self.uFace[5] + self.uFace[8]
-        tempB = self.bFace[0] + self.bFace[3] + self.bFace[6]
-        tempD = self.dFace[2] + self.dFace[5] + self.dFace[8]
-        tempF = self.fFace[2] + self.fFace[5] + self.fFace[8]
+        temp_u = self.u_face[2] + self.u_face[5] + self.u_face[8]
+        temp_b = self.b_face[0] + self.b_face[3] + self.b_face[6]
+        temp_d = self.d_face[2] + self.d_face[5] + self.d_face[8]
+        temp_f = self.f_face[2] + self.f_face[5] + self.f_face[8]
 
-        self.bFace[0] = tempU[2]
-        self.bFace[3] = tempU[1]
-        self.bFace[6] = tempU[0]
+        self.b_face[0] = temp_u[2]
+        self.b_face[3] = temp_u[1]
+        self.b_face[6] = temp_u[0]
 
-        self.dFace[2] = tempB[2]
-        self.dFace[5] = tempB[1]
-        self.dFace[8] = tempB[0]
+        self.d_face[2] = temp_b[2]
+        self.d_face[5] = temp_b[1]
+        self.d_face[8] = temp_b[0]
 
-        self.fFace[2] = tempD[0]
-        self.fFace[5] = tempD[1]
-        self.fFace[8] = tempD[2]
+        self.f_face[2] = temp_d[0]
+        self.f_face[5] = temp_d[1]
+        self.f_face[8] = temp_d[2]
 
-        self.uFace[2] = tempF[0]
-        self.uFace[5] = tempF[1]
-        self.uFace[8] = tempF[2]
+        self.u_face[2] = temp_f[0]
+        self.u_face[5] = temp_f[1]
+        self.u_face[8] = temp_f[2]
 
         # face
-        self.rotate_face(self.rFace)
+        self.rotate_face(self.r_face)
 
         self.moves_applied.append("R")
 
     def r2_move(self):
-        tempU = self.uFace[8] + self.uFace[5] + self.uFace[2]
-        tempB = self.bFace[0] + self.bFace[3] + self.bFace[6]
-        tempD = self.dFace[8] + self.dFace[5] + self.dFace[2]
-        tempF = self.fFace[8] + self.fFace[5] + self.fFace[2]
+        temp_u = self.u_face[8] + self.u_face[5] + self.u_face[2]
+        temp_b = self.b_face[0] + self.b_face[3] + self.b_face[6]
+        temp_d = self.d_face[8] + self.d_face[5] + self.d_face[2]
+        temp_f = self.f_face[8] + self.f_face[5] + self.f_face[2]
 
-        self.uFace[8] = tempD[0]
-        self.uFace[5] = tempD[1]
-        self.uFace[2] = tempD[2]
+        self.u_face[8] = temp_d[0]
+        self.u_face[5] = temp_d[1]
+        self.u_face[2] = temp_d[2]
 
-        self.bFace[0] = tempF[0]
-        self.bFace[3] = tempF[1]
-        self.bFace[6] = tempF[2]
+        self.b_face[0] = temp_f[0]
+        self.b_face[3] = temp_f[1]
+        self.b_face[6] = temp_f[2]
 
-        self.dFace[8] = tempU[0]
-        self.dFace[5] = tempU[1]
-        self.dFace[2] = tempU[2]
+        self.d_face[8] = temp_u[0]
+        self.d_face[5] = temp_u[1]
+        self.d_face[2] = temp_u[2]
 
-        self.fFace[8] = tempB[0]
-        self.fFace[5] = tempB[1]
-        self.fFace[2] = tempB[2]
+        self.f_face[8] = temp_b[0]
+        self.f_face[5] = temp_b[1]
+        self.f_face[2] = temp_b[2]
 
-        self.rotate_face(self.rFace)
-        self.rotate_face(self.rFace)
+        self.rotate_face(self.r_face)
+        self.rotate_face(self.r_face)
 
         self.moves_applied.append("R2")
 
@@ -213,24 +213,24 @@ class Cube:
     def b_move(self):
 
         # bars
-        tempU = self.uFace[2::-1]
-        tempL = self.lFace[0] + self.lFace[3] + self.lFace[6]
-        tempD = self.dFace[6:9]
-        tempR = self.rFace[8] + self.rFace[5] + self.rFace[2]
+        temp_u = self.u_face[2::-1]
+        temp_l = self.l_face[0] + self.l_face[3] + self.l_face[6]
+        temp_d = self.d_face[6:9]
+        temp_r = self.r_face[8] + self.r_face[5] + self.r_face[2]
 
-        self.uFace[2::-1] = tempR
-        self.lFace[0] = tempU[0]
-        self.lFace[3] = tempU[1]
-        self.lFace[6] = tempU[2]
+        self.u_face[2::-1] = temp_r
+        self.l_face[0] = temp_u[0]
+        self.l_face[3] = temp_u[1]
+        self.l_face[6] = temp_u[2]
 
-        self.dFace[6:9] = tempL
+        self.d_face[6:9] = temp_l
 
-        self.rFace[8] = tempD[0]
-        self.rFace[5] = tempD[1]
-        self.rFace[2] = tempD[2]
+        self.r_face[8] = temp_d[0]
+        self.r_face[5] = temp_d[1]
+        self.r_face[2] = temp_d[2]
 
         # face
-        self.rotate_face(self.bFace)
+        self.rotate_face(self.b_face)
 
         self.moves_applied.append("B")
 
@@ -254,29 +254,29 @@ class Cube:
 
     def l_move(self):
         # bars
-        tempU = self.uFace[0] + self.uFace[3] + self.uFace[6]
-        tempF = self.fFace[0] + self.fFace[3] + self.fFace[6]
-        tempD = self.dFace[0] + self.dFace[3] + self.dFace[6]
-        tempB = self.bFace[8] + self.bFace[5] + self.bFace[2]
+        temp_u = self.u_face[0] + self.u_face[3] + self.u_face[6]
+        temp_f = self.f_face[0] + self.f_face[3] + self.f_face[6]
+        temp_d = self.d_face[0] + self.d_face[3] + self.d_face[6]
+        temp_b = self.b_face[8] + self.b_face[5] + self.b_face[2]
 
-        self.uFace[0] = tempB[0]
-        self.uFace[3] = tempB[1]
-        self.uFace[6] = tempB[2]
+        self.u_face[0] = temp_b[0]
+        self.u_face[3] = temp_b[1]
+        self.u_face[6] = temp_b[2]
 
-        self.fFace[0] = tempU[0]
-        self.fFace[3] = tempU[1]
-        self.fFace[6] = tempU[2]
+        self.f_face[0] = temp_u[0]
+        self.f_face[3] = temp_u[1]
+        self.f_face[6] = temp_u[2]
 
-        self.dFace[0] = tempF[0]
-        self.dFace[3] = tempF[1]
-        self.dFace[6] = tempF[2]
+        self.d_face[0] = temp_f[0]
+        self.d_face[3] = temp_f[1]
+        self.d_face[6] = temp_f[2]
 
-        self.bFace[8] = tempD[0]
-        self.bFace[5] = tempD[1]
-        self.bFace[2] = tempD[2]
+        self.b_face[8] = temp_d[0]
+        self.b_face[5] = temp_d[1]
+        self.b_face[2] = temp_d[2]
 
         # face
-        self.rotate_face(self.lFace)
+        self.rotate_face(self.l_face)
 
         self.moves_applied.append("L")
 
@@ -300,18 +300,18 @@ class Cube:
 
     def d_move(self):
         # bars
-        tempF = self.fFace[6:9]
-        tempR = self.rFace[6:9]
-        tempB = self.bFace[6:9]
-        tempL = self.lFace[6:9]
+        temp_f = self.f_face[6:9]
+        temp_r = self.r_face[6:9]
+        temp_b = self.b_face[6:9]
+        temp_l = self.l_face[6:9]
 
-        self.rFace[6:9] = tempF
-        self.bFace[6:9] = tempR
-        self.lFace[6:9] = tempB
-        self.fFace[6:9] = tempL
+        self.r_face[6:9] = temp_f
+        self.b_face[6:9] = temp_r
+        self.l_face[6:9] = temp_b
+        self.f_face[6:9] = temp_l
 
         # face
-        self.rotate_face(self.dFace)
+        self.rotate_face(self.d_face)
 
         self.moves_applied.append("D")
 
@@ -333,7 +333,7 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.append("D'")
 
-    # takes a cube and returns valid adjacent states
+    # takes a cube and returns a list of cubes with valid adjacent states
     def create_adj_list(self):
 
         adj_list = []
