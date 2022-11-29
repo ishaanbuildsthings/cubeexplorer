@@ -171,6 +171,3 @@ def solve(scramble, move_types, max_depth):
 
     # returns final solutions
     return join_solutions(final_solutions)
-
-
-print(solve("M,R,U,R,U'", "M,U,R", 6))

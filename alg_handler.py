@@ -26,7 +26,19 @@ def apply_alg(algorithm, cube):
                  "S2": cube.s2_move,
                  "M": cube.m_move,
                  "M'": cube.m_prime_move,
-                 "M2": cube.m2_move
+                 "M2": cube.m2_move,
+                 "f": cube.f_wide_move,
+                 "f'": cube.f_prime_wide_move,
+                 "f2": cube.f2_wide_move,
+                 "b": cube.b_wide_move,
+                 "b2": cube.b2_wide_move,
+                 "b'": cube.b_prime_wide_move,
+                 "r": cube.r_wide_move,
+                 "r2": cube.r2_wide_move,
+                 "r'": cube.r_prime_wide_move,
+                 "l": cube.l_wide_move,
+                 "l2": cube.l2_wide_move,
+                 "l'": cube.l_prime_wide_move
                  }
     for move in algorithm:
         move_dict[move]()
