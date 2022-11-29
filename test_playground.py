@@ -3,18 +3,18 @@ from visualizer import *
 from alg_handler import *
 
 
-# cube = Cube()
-# apply_alg(["U", "R'", "U'", "R'", "f2", "F"], cube)
-# cube_to_visual(cube)
+cube = Cube()
+cube.e_prime_move()
+cube_to_visual(cube)
 
-# scramble
-cube2 = Cube()
-apply_alg(["f", "R", "U", "R", "U'"], cube2)
-cube_to_visual(cube2)
-# apply_alg(["U", "R'", "U'", "R'", "f'"], cube2)
+# # scramble
+# cube2 = Cube()
+# apply_alg(["f", "R", "U", "R", "U'"], cube2)
 # cube_to_visual(cube2)
-apply_alg(["U", "R'", "U'", "R'", "f2", "F"], cube2)
-cube_to_visual(cube2)
+# # apply_alg(["U", "R'", "U'", "R'", "f'"], cube2)
+# # cube_to_visual(cube2)
+# apply_alg(["U", "R'", "U'", "R'", "f2", "F"], cube2)
+# cube_to_visual(cube2)
 
 
 

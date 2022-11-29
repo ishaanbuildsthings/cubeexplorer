@@ -455,7 +455,49 @@ class Cube:
         self.l_face[1] = temp_r[2]
         # moves applied
         self.moves_applied.append("S2")
-
+    
+    def e_move(self):
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_l
+        self.r_face[3:6] = temp_f
+        self.b_face[3:6] = temp_r
+        self.l_face[3:6] = temp_b
+        # moves applied
+        self.moves_applied.append("E")
+        
+    def e2_move(self):
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_b
+        self.r_face[3:6] = temp_l
+        self.b_face[3:6] = temp_f
+        self.l_face[3:6] = temp_r
+        # moves applied
+        self.moves_applied.append("E2")
+        
+    def e_prime_move(self):
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_r
+        self.r_face[3:6] = temp_b
+        self.b_face[3:6] = temp_l
+        self.l_face[3:6] = temp_f
+        # moves applied
+        self.moves_applied.append("E'")
+        
     def m_move(self):
         # temps
         temp_u = self.u_face[1] + self.u_face[4] + self.u_face[7]
@@ -521,6 +563,164 @@ class Cube:
         self.b_face[1] = temp_f[2]
         # moves applied
         self.moves_applied.append("M2")
+
+    def u_wide_move(self):
+        # temps
+        temp_f = self.f_face[0:3]
+        temp_r = self.r_face[0:3]
+        temp_b = self.b_face[0:3]
+        temp_l = self.l_face[0:3]
+        # assign bars
+        self.l_face[0:3] = temp_f
+        self.b_face[0:3] = temp_l
+        self.r_face[0:3] = temp_b
+        self.f_face[0:3] = temp_r
+        # misc
+        rotate_face_cw(self.u_face)
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_r
+        self.r_face[3:6] = temp_b
+        self.b_face[3:6] = temp_l
+        self.l_face[3:6] = temp_f
+        # moves applied
+        self.moves_applied.append("u")
+
+    def u2_wide_move(self):
+        # temps
+        temp_f = self.f_face[0:3]
+        temp_r = self.r_face[0:3]
+        temp_b = self.b_face[0:3]
+        temp_l = self.l_face[0:3]
+        # assign bars
+        self.l_face[0:3] = temp_r
+        self.b_face[0:3] = temp_f
+        self.r_face[0:3] = temp_l
+        self.f_face[0:3] = temp_b
+        # misc
+        rotate_face_180(self.u_face)
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_b
+        self.r_face[3:6] = temp_l
+        self.b_face[3:6] = temp_f
+        self.l_face[3:6] = temp_r
+        # moves applied
+        self.moves_applied.append("u2")
+
+    def u_prime_wide_move(self):
+        # temps
+        temp_f = self.f_face[0:3]
+        temp_r = self.r_face[0:3]
+        temp_b = self.b_face[0:3]
+        temp_l = self.l_face[0:3]
+        # assign bars
+        self.l_face[0:3] = temp_b
+        self.b_face[0:3] = temp_r
+        self.r_face[0:3] = temp_f
+        self.f_face[0:3] = temp_l
+        # misc
+        rotate_face_ccw(self.u_face)
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_l
+        self.r_face[3:6] = temp_f
+        self.b_face[3:6] = temp_r
+        self.l_face[3:6] = temp_b
+        # moves applied
+        self.moves_applied.append("u'")
+
+    def d_wide_move(self):
+        # temps
+        temp_f = self.f_face[6:]
+        temp_r = self.r_face[6:]
+        temp_b = self.b_face[6:]
+        temp_l = self.l_face[6:]
+        # assign bars
+        self.r_face[6:] = temp_f
+        self.b_face[6:] = temp_r
+        self.l_face[6:] = temp_b
+        self.f_face[6:] = temp_l
+        # misc
+        rotate_face_cw(self.d_face)
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_l
+        self.r_face[3:6] = temp_f
+        self.b_face[3:6] = temp_r
+        self.l_face[3:6] = temp_b
+        # moves applied
+        self.moves_applied.append("d")
+
+    def d2_wide_move(self):
+        # temps
+        temp_f = self.f_face[6:]
+        temp_r = self.r_face[6:]
+        temp_b = self.b_face[6:]
+        temp_l = self.l_face[6:]
+        # assign bars
+        self.f_face[6:] = temp_b
+        self.r_face[6:] = temp_l
+        self.b_face[6:] = temp_f
+        self.l_face[6:] = temp_r
+        # misc
+        rotate_face_180(self.d_face)
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_b
+        self.r_face[3:6] = temp_l
+        self.b_face[3:6] = temp_f
+        self.l_face[3:6] = temp_r
+        # moves applied
+        self.moves_applied.append("d2")
+
+    def d_prime_wide_move(self):
+        # temps
+        temp_f = self.f_face[6:]
+        temp_r = self.r_face[6:]
+        temp_b = self.b_face[6:]
+        temp_l = self.l_face[6:]
+        # assign bars
+        self.f_face[6:] = temp_r
+        self.l_face[6:] = temp_f
+        self.b_face[6:] = temp_l
+        self.r_face[6:] = temp_b
+        # misc
+        rotate_face_ccw(self.d_face)
+        # temps
+        temp_f = self.f_face[3:6]
+        temp_r = self.r_face[3:6]
+        temp_b = self.b_face[3:6]
+        temp_l = self.l_face[3:6]
+        # assign strips
+        self.f_face[3:6] = temp_r
+        self.r_face[3:6] = temp_b
+        self.b_face[3:6] = temp_l
+        self.l_face[3:6] = temp_f
+        # moves applied
+        self.moves_applied.append("d'")
+
+
 
     def r_wide_move(self):
         # temps
@@ -1054,6 +1254,33 @@ class Cube:
             cube_m_prime = deepcopy(self)
             cube_m_prime.m_prime_move()
             adj_list.extend([cube_m, cube_m2, cube_m_prime])
+            
+        if "E" in self.allowed_moves_for_chain and "E" != simplified_last_move:
+            cube_e = deepcopy(self)
+            cube_e.e_move()
+            cube_e2 = deepcopy(self)
+            cube_e2.e2_move()
+            cube_e_prime = deepcopy(self)
+            cube_e_prime.e_prime_move()
+            adj_list.extend([cube_e, cube_e2, cube_e_prime])
+
+        if "u" in self.allowed_moves_for_chain and "u" != simplified_last_move:
+            cube_u_wide = deepcopy(self)
+            cube_u_wide.u_wide_move()
+            cube_u2_wide = deepcopy(self)
+            cube_u2_wide.u2_wide_move()
+            cube_u_prime_wide = deepcopy(self)
+            cube_u_prime_wide.u_prime_wide_move()
+            adj_list.extend([cube_u_wide, cube_u2_wide, cube_u_prime_wide])
+
+        if "d" in self.allowed_moves_for_chain and "d" != simplified_last_move:
+            cube_d_wide = deepcopy(self)
+            cube_d_wide.d_wide_move()
+            cube_d2_wide = deepcopy(self)
+            cube_d2_wide.d2_wide_move()
+            cube_d_prime_wide = deepcopy(self)
+            cube_d_prime_wide.d_prime_wide_move()
+            adj_list.extend([cube_d_wide, cube_d2_wide, cube_d_prime_wide])
             
         if "f" in self.allowed_moves_for_chain and "f" != simplified_last_move:
             cube_f_wide = deepcopy(self)

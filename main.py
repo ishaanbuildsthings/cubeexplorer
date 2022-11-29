@@ -171,3 +171,7 @@ def solve(scramble, move_types, max_depth):
 
     # returns final solutions
     return join_solutions(final_solutions)
+
+
+# testing
+# print(solve("R,d,R'", "R,d", 5))
