@@ -20,7 +20,13 @@ def apply_alg(algorithm, cube):
                  "L'": cube.l_prime_move,
                  "D": cube.d_move,
                  "D2": cube.d2_move,
-                 "D'": cube.d_prime_move
+                 "D'": cube.d_prime_move,
+                 "S": cube.s_move,
+                 "S'": cube.s_prime_move,
+                 "S2": cube.s2_move,
+                 "M": cube.m_move,
+                 "M'": cube.m_prime_move,
+                 "M2": cube.m2_move
                  }
     for move in algorithm:
         move_dict[move]()

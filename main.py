@@ -114,7 +114,7 @@ def solve(scramble, move_types, max_depth):
             # print_line()
             solved_queue.put(cube)
 
-        # while condition
+        # for while condition
         depth_next_queued = solved_queue.queue[0].depth
 
         # ____________________________________ SCRAMBLED SIDE ____________________________________ #
@@ -171,3 +171,6 @@ def solve(scramble, move_types, max_depth):
 
     # returns final solutions
     return join_solutions(final_solutions)
+
+
+print(solve("M,R,U,R,U'", "M,U,R", 6))
