@@ -25,25 +25,13 @@ class Cube:
         self.bFace = SOLVED_STICKER_STATE[27:36]
         self.lFace = SOLVED_STICKER_STATE[36:45]
         self.dFace = SOLVED_STICKER_STATE[45:54]
+        self.tuple = ()  # initialized to nothing as only update_tuple will be used
 
-        self.tuple = (tuple(self.uFace), tuple(self.fFace), tuple(self.rFace),
-                      tuple(self.bFace), tuple(self.lFace), tuple(self.dFace))
-
+    # exists for hashing, not to be used otherwise
     def update_tuple(self):
         self.tuple = (tuple(self.uFace), tuple(self.fFace), tuple(self.rFace),
                       tuple(self.bFace), tuple(self.lFace), tuple(self.dFace))
-
-    def is_solved(self):
-        return self.uFace + self.fFace + self.rFace + self.bFace + self.lFace + self.dFace == SOLVED_STICKER_STATE
-
-    def reset_cube_state(self):
-
-        self.uFace = SOLVED_STICKER_STATE[0:9]
-        self.fFace = SOLVED_STICKER_STATE[9:18]
-        self.rFace = SOLVED_STICKER_STATE[18:27]
-        self.bFace = SOLVED_STICKER_STATE[27:36]
-        self.lFace = SOLVED_STICKER_STATE[36:45]
-        self.dFace = SOLVED_STICKER_STATE[45:54]
+        return self.tuple
 
     def rotate_face(self, face):
         temp0 = face[0]
@@ -81,8 +69,6 @@ class Cube:
 
         self.moves_applied.append("U")
 
-        self.update_tuple()
-
     def u2_move(self):
         tempF = self.fFace[0:3]
         tempR = self.rFace[0:3]
@@ -98,8 +84,6 @@ class Cube:
         self.rotate_face(self.uFace)
 
         self.moves_applied.append("U2")
-
-        self.update_tuple()
 
     def u_prime_move(self):
         tempF = self.fFace[0:3]
@@ -117,8 +101,6 @@ class Cube:
         self.rotate_face(self.uFace)
 
         self.moves_applied.append("U'")
-
-        self.update_tuple()
 
     def f_move(self):
 
@@ -144,8 +126,6 @@ class Cube:
 
         self.moves_applied.append("F")
 
-        self.update_tuple()
-
     def f2_move(self):
         self.f_move()
         self.f_move()
@@ -153,8 +133,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("F2")
-
-        self.update_tuple()
 
     def f_prime_move(self):
         self.f_move()
@@ -165,8 +143,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("F'")
-
-        self.update_tuple()
 
     def r_move(self):
 
@@ -197,8 +173,6 @@ class Cube:
 
         self.moves_applied.append("R")
 
-        self.update_tuple()
-
     def r2_move(self):
         tempU = self.uFace[8] + self.uFace[5] + self.uFace[2]
         tempB = self.bFace[0] + self.bFace[3] + self.bFace[6]
@@ -226,8 +200,6 @@ class Cube:
 
         self.moves_applied.append("R2")
 
-        self.update_tuple()
-
     def r_prime_move(self):
         self.r_move()
         self.r_move()
@@ -237,8 +209,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("R'")
-
-        self.update_tuple()
 
     def b_move(self):
 
@@ -264,8 +234,6 @@ class Cube:
 
         self.moves_applied.append("B")
 
-        self.update_tuple()
-
     def b2_move(self):
         self.b_move()
         self.b_move()
@@ -273,8 +241,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("B2")
-
-        self.update_tuple()
 
     def b_prime_move(self):
         self.b_move()
@@ -285,8 +251,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("B'")
-
-        self.update_tuple()
 
     def l_move(self):
         # bars
@@ -316,8 +280,6 @@ class Cube:
 
         self.moves_applied.append("L")
 
-        self.update_tuple()
-
     def l2_move(self):
         self.l_move()
         self.l_move()
@@ -325,8 +287,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("L2")
-
-        self.update_tuple()
 
     def l_prime_move(self):
         self.l_move()
@@ -337,8 +297,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("L'")
-
-        self.update_tuple()
 
     def d_move(self):
         # bars
@@ -357,8 +315,6 @@ class Cube:
 
         self.moves_applied.append("D")
 
-        self.update_tuple()
-
     def d2_move(self):
         self.d_move()
         self.d_move()
@@ -366,8 +322,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("D2")
-
-        self.update_tuple()
 
     def d_prime_move(self):
         self.d_move()
@@ -378,8 +332,6 @@ class Cube:
         self.moves_applied.pop()
         self.moves_applied.pop()
         self.moves_applied.append("D'")
-
-        self.update_tuple()
 
     # takes a cube and returns valid adjacent states
     def create_adj_list(self):
