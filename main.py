@@ -11,20 +11,10 @@ import math
 # allowed_moves = input("What move types are allowed?").split(" ")
 # max_depth_allowed = int(input("What is the maximum algorithm depth?"))
 
-# given a list of lists, join_solutions creates a single list
-# example input: [["D'", "U'", "R'"], ["U'", "D'", "R'"]]
-# example output: ["D' U' R'", "U' D' R'"]
-def join_solutions(solutions):
-    joined_solutions = []
-    for soln in solutions:
-        joined_solutions.append(' '.join(soln))
-    return joined_solutions
-
-
 # generates all possible solutions for a scramble, subject to the given
 # move_types and max_depth.
 # scramble and move_types must be delimited by ","
-def solve(scramble, move_types, max_depth):
+def solve(scramble, move_types, max_depth, id, txn_ids, final_solutions):
     input_algorithm = scramble.split(",")
     allowed_moves = move_types.split(",")
     max_depth_allowed = int(max_depth)
@@ -60,7 +50,6 @@ def solve(scramble, move_types, max_depth):
 
     num_cubes = 0
     depth_next_queued = 0
-    final_solutions = []
 
     # pruning
     odd_status = bool(max_depth_allowed % 2)
@@ -108,7 +97,7 @@ def solve(scramble, move_types, max_depth):
                     stage_3 = reverse_and_invert_move_list(stage_2)
 
                     if stage_3 not in final_solutions:
-                        final_solutions.append(stage_3)
+                        final_solutions.append(' '.join(stage_3))
 
             # misc
             # print_line()
@@ -163,14 +152,15 @@ def solve(scramble, move_types, max_depth):
                     stage_2 = clean_up_intersection(scramble_cube.moves_applied, stage_1)
 
                     if stage_2 not in final_solutions:
-                        final_solutions.append(stage_2)
+                        final_solutions.append(' '.join(stage_2))
 
             # misc
             # print_line()
             scrambled_queue.put(scramble_cube)
 
-    # returns final solutions
-    return join_solutions(final_solutions)
+    # remove txn id from set
+    final_solutions.append('DONE')
+    txn_ids.remove(id)
 
 
 # testing
