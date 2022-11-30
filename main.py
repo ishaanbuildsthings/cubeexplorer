@@ -5,12 +5,6 @@ from alg_handler import *
 from queue import Queue
 import math
 
-
-# ask user for information
-# input_algorithm = input("What's your scramble?").split(" ")
-# allowed_moves = input("What move types are allowed?").split(" ")
-# max_depth_allowed = int(input("What is the maximum algorithm depth?"))
-
 # generates all possible solutions for a scramble, subject to the given
 # move_types and max_depth.
 # scramble and move_types must be delimited by ","
@@ -29,15 +23,6 @@ def solve(scramble, move_types, max_depth, id, txn_ids, solns):
     alg_handler.apply_alg(input_algorithm, scrambled_cube)
     scrambled_cube.moves_applied = []
     scrambled_cube.allowed_moves_for_chain = allowed_moves
-
-    # present initial cubes
-    # print_line()
-    # print(f"Here are your cubes:")
-    # print("Solved Cube")
-    # cube_to_visual(solved_cube)
-    # print("Scrambled Cube")
-    # cube_to_visual(scrambled_cube)
-    # print_line(3)
 
     # setup for search algorithm
     solved_hash = {}
@@ -69,41 +54,26 @@ def solve(scramble, move_types, max_depth, id, txn_ids, solns):
             cube.depth = got_cube.depth + 1
             cube.allowed_moves_for_chain = cube.parent_cube.allowed_moves_for_chain
 
-            # print info about cube
-            # print("Started from solved cube")
-            # cube_to_visual(cube)
-            # print(f"Count: {num_cubes}")
-            # print_depth(cube)
-            # print_moves(cube)
-
             # handles if the cube state has/hasn't been reached from the solved (same) end
             if cube.update_tuple() not in solved_hash:
-                # print("This cube state hasn't been reached from the solved end before, hashing now...")
                 solved_hash[cube.update_tuple()] = [cube.moves_applied]
             else:
-                # print("This cube state has already been reached from the solved end before via different moves,"
-                #     "adding another sequence to hash now...")
                 solved_hash[cube.update_tuple()].append(cube.moves_applied)
 
             # handles if the cube state has been reached from the scrambled end
             if cube.update_tuple() in scrambled_hash:
-                # print("This cube state has been reached from the scrambled end before! Intersection found.")
-                # print("Here are the ways we reached this state from the scrambled end:")
 
-                # prints and adds solutions for when solved cube reaches state already found from scrambled end
                 for scrambled_halfway in scrambled_hash[cube.update_tuple()]:
-                    # print(scrambled_halfway)
                     stage_1 = reverse_and_invert_move_list(scrambled_halfway)
                     stage_2 = clean_up_intersection(cube.moves_applied, stage_1)
                     stage_3 = reverse_and_invert_move_list(stage_2)
-
                     stage_3_s = ' '.join(stage_3)
+
                     if stage_3_s not in final_solutions:
                         final_solutions.add(stage_3_s)
                         solns.append(stage_3_s)
 
             # misc
-            # print_line()
             solved_queue.put(cube)
 
         # for while condition
@@ -126,31 +96,16 @@ def solve(scramble, move_types, max_depth, id, txn_ids, solns):
             scramble_cube.depth = scrambled_got_cube.depth + 1
             scramble_cube.allowed_moves_for_chain = scramble_cube.parent_cube.allowed_moves_for_chain
 
-            # print info about cube
-            # print(f"Started from scrambled cube")
-            # cube_to_visual(scramble_cube)
-            # print(f"Count: {num_cubes}")
-            # print_depth(scramble_cube)
-            # print_moves(scramble_cube)
-
             # handles if the cube state has/hasn't been reached from the scrambled (same) end
             if scramble_cube.update_tuple() not in scrambled_hash:
-                # print("This cube state hasn't been reached from the scrambled end before, hashing now...")
                 scrambled_hash[scramble_cube.update_tuple()] = [scramble_cube.moves_applied]
 
             else:
-                # print("This cube state has already been reached from the solved end before, adding another moveset "
-                #     "to hash now...")
                 scrambled_hash[scramble_cube.update_tuple()].append(scramble_cube.moves_applied)
 
             # handles if the cube state has been reached from the solved end
             if scramble_cube.update_tuple() in solved_hash:
-                # print("This cube state has been reached from the scrambled end before! Intersection found.")
-                # print("Here are the ways we reached this state from the scrambled end:")
-
-                # prints and adds solutions for when scrambled cube reaches state already found from solved end
                 for solved_halfway in solved_hash[scramble_cube.update_tuple()]:
-                    # print(solved_halfway)
                     stage_1 = reverse_and_invert_move_list(solved_halfway)
                     stage_2 = clean_up_intersection(scramble_cube.moves_applied, stage_1)
 
@@ -160,13 +115,9 @@ def solve(scramble, move_types, max_depth, id, txn_ids, solns):
                         solns.append(stage_2_s)
 
             # misc
-            # print_line()
             scrambled_queue.put(scramble_cube)
 
     # remove txn id from set
     solns.append('DONE')
     txn_ids.remove(id)
 
-
-# testing
-# print(solve("R,U,R',x,U,R,U'", "R,U,x", 8))

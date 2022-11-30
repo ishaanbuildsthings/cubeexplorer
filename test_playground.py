@@ -1,7 +1,5 @@
 from cube import Cube
 from visualizer import *
-from alg_handler import *
-
 
 cube = Cube()
 cube.x_rotation()

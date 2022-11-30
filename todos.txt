@@ -1,3 +1,4 @@
 1. add error logging
 2. more stuff in chat with tim
+3. bug when no depth submitted
 
