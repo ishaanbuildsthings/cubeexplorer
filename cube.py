@@ -4,10 +4,10 @@ from alg_handler import simplify_move
 
 # constants
 SOLVED_STICKER_STATE = ['⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜',
+                        '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩',
                         '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥',
                         '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦',
                         '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧',
-                        '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩',
                         '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨',
                         ]
 
@@ -131,11 +131,11 @@ class Cube:
         temp_d = self.d_face[2::-1]
         temp_l = self.l_face[8] + self.l_face[5] + self.l_face[2]
         # assign bars
-        self.u_face[6:0] = temp_d
+        self.u_face[6:] = temp_d
         self.r_face[0] = temp_l[0]
         self.r_face[3] = temp_l[1]
         self.r_face[6] = temp_l[2]
-        self.d_face[2:-1:-1] = temp_u
+        self.d_face[2::-1] = temp_u
         self.l_face[8] = temp_r[0]
         self.l_face[5] = temp_r[1]
         self.l_face[2] = temp_r[2]
@@ -1173,6 +1173,114 @@ class Cube:
         # moves applied
         self.moves_applied.append("b2")
 
+    def z_rotation(self):
+        temp_u = self.u_face
+        temp_r = self.r_face
+        temp_d = self.d_face
+        temp_l = self.l_face
+        self.u_face = temp_l
+        self.r_face = temp_u
+        self.d_face = temp_r
+        self.l_face = temp_d
+        rotate_face_cw(self.f_face)
+        rotate_face_ccw(self.b_face)
+
+    def z_prime_rotation(self):
+        temp_u = self.u_face
+        temp_r = self.r_face
+        temp_d = self.d_face
+        temp_l = self.l_face
+        self.u_face = temp_r
+        self.r_face = temp_d
+        self.d_face = temp_l
+        self.l_face = temp_u
+        rotate_face_ccw(self.f_face)
+        rotate_face_cw(self.b_face)
+
+    def z2_rotation(self):
+        temp_u = self.u_face
+        temp_r = self.r_face
+        temp_d = self.d_face
+        temp_l = self.l_face
+        self.u_face = temp_d
+        self.r_face = temp_l
+        self.d_face = temp_u
+        self.l_face = temp_r
+        rotate_face_180(self.f_face)
+        rotate_face_180(self.b_face)
+
+    def y_rotation(self):
+        temp_f = self.f_face
+        temp_r = self.r_face
+        temp_b = self.b_face
+        temp_l = self.l_face
+        self.f_face = temp_r
+        self.r_face = temp_b
+        self.b_face = temp_l
+        self.l_face = temp_f
+        rotate_face_cw(self.u_face)
+        rotate_face_ccw(self.d_face)
+
+    def y_prime_rotation(self):
+        temp_f = self.f_face
+        temp_r = self.r_face
+        temp_b = self.b_face
+        temp_l = self.l_face
+        self.f_face = temp_l
+        self.r_face = temp_f
+        self.b_face = temp_r
+        self.l_face = temp_b
+        rotate_face_ccw(self.u_face)
+        rotate_face_cw(self.d_face)
+
+    def y2_rotation(self):
+        temp_f = self.f_face
+        temp_r = self.r_face
+        temp_b = self.b_face
+        temp_l = self.l_face
+        self.f_face = temp_b
+        self.r_face = temp_l
+        self.b_face = temp_f
+        self.l_face = temp_r
+        rotate_face_180(self.u_face)
+        rotate_face_180(self.d_face)
+
+    def x_rotation(self):
+        temp_u = self.u_face
+        temp_b = self.b_face
+        temp_d = self.d_face
+        temp_f = self.f_face
+        self.u_face = temp_f
+        self.b_face = temp_u
+        self.d_face = temp_b
+        self.f_face = temp_d
+        rotate_face_cw(self.r_face)
+        rotate_face_ccw(self.l_face)
+
+    def x_prime_rotation(self):
+        temp_u = self.u_face
+        temp_b = self.b_face
+        temp_d = self.d_face
+        temp_f = self.f_face
+        self.u_face = temp_b
+        self.b_face = temp_d
+        self.d_face = temp_f
+        self.f_face = temp_u
+        rotate_face_ccw(self.r_face)
+        rotate_face_cw(self.l_face)
+
+    def x2_rotation(self):
+        temp_u = self.u_face
+        temp_b = self.b_face
+        temp_d = self.d_face
+        temp_f = self.f_face
+        self.u_face = temp_d
+        self.b_face = temp_f
+        self.d_face = temp_u
+        self.f_face = temp_b
+        rotate_face_180(self.r_face)
+        rotate_face_180(self.l_face)
+
     # takes a cube and returns a list of cubes with valid adjacent states
     def create_adj_list(self):
 
@@ -1317,5 +1425,41 @@ class Cube:
             cube_l_prime_wide = deepcopy(self)
             cube_l_prime_wide.l_prime_wide_move()
             adj_list.extend([cube_l_wide, cube_l2_wide, cube_l_prime_wide])
+
+        if "l" in self.allowed_moves_for_chain and "l" != simplified_last_move:
+            cube_l_wide = deepcopy(self)
+            cube_l_wide.l_wide_move()
+            cube_l2_wide = deepcopy(self)
+            cube_l2_wide.l2_wide_move()
+            cube_l_prime_wide = deepcopy(self)
+            cube_l_prime_wide.l_prime_wide_move()
+            adj_list.extend([cube_l_wide, cube_l2_wide, cube_l_prime_wide])
+
+        if "z" in self.allowed_moves_for_chain and "z" != simplified_last_move:
+            cube_z = deepcopy(self)
+            cube_z.z_rotation()
+            cube_z2 = deepcopy(self)
+            cube_z2.z2_rotation()
+            cube_z_prime = deepcopy(self)
+            cube_z_prime.z_prime_rotation()
+            adj_list.extend([cube_z, cube_z2, cube_z_prime])
+            
+        if "y" in self.allowed_moves_for_chain and "y" != simplified_last_move:
+            cube_y = deepcopy(self)
+            cube_y.y_rotation()
+            cube_y2 = deepcopy(self)
+            cube_y2.y2_rotation()
+            cube_y_prime = deepcopy(self)
+            cube_y_prime.y_prime_rotation()
+            adj_list.extend([cube_y, cube_y2, cube_y_prime])
+            
+        if "x" in self.allowed_moves_for_chain and "x" != simplified_last_move:
+            cube_x = deepcopy(self)
+            cube_x.x_rotation()
+            cube_x2 = deepcopy(self)
+            cube_x2.x2_rotation()
+            cube_x_prime = deepcopy(self)
+            cube_x_prime.x_prime_rotation()
+            adj_list.extend([cube_x, cube_x2, cube_x_prime])
 
         return adj_list

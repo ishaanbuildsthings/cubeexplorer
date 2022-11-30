@@ -47,7 +47,17 @@ def apply_alg(algorithm, cube):
                  "l'": cube.l_prime_wide_move,
                  "E": cube.e_move,
                  "E2": cube.e2_move,
-                 "E'": cube.e_prime_move
+                 "E'": cube.e_prime_move,
+                 "z": cube.z_rotation,
+                 "z2": cube.z2_rotation,
+                 "z'": cube.z_prime_rotation,
+                 "y": cube.y_rotation,
+                 "y2": cube.y2_rotation,
+                 "y'": cube.y_prime_rotation,
+                 "x": cube.x_rotation,
+                 "x2": cube.x2_rotation,
+                 "x'": cube.x_prime_rotation,
+
                  }
     for move in algorithm:
         move_dict[move]()
