@@ -1184,6 +1184,7 @@ class Cube:
         self.l_face = temp_d
         rotate_face_cw(self.f_face)
         rotate_face_ccw(self.b_face)
+        self.moves_applied.append("z")
 
     def z_prime_rotation(self):
         temp_u = self.u_face
@@ -1196,6 +1197,8 @@ class Cube:
         self.l_face = temp_u
         rotate_face_ccw(self.f_face)
         rotate_face_cw(self.b_face)
+        self.moves_applied.append("z'")
+
 
     def z2_rotation(self):
         temp_u = self.u_face
@@ -1208,6 +1211,7 @@ class Cube:
         self.l_face = temp_r
         rotate_face_180(self.f_face)
         rotate_face_180(self.b_face)
+        self.moves_applied.append("z2")
 
     def y_rotation(self):
         temp_f = self.f_face
@@ -1220,6 +1224,7 @@ class Cube:
         self.l_face = temp_f
         rotate_face_cw(self.u_face)
         rotate_face_ccw(self.d_face)
+        self.moves_applied.append("y")
 
     def y_prime_rotation(self):
         temp_f = self.f_face
@@ -1232,6 +1237,8 @@ class Cube:
         self.l_face = temp_b
         rotate_face_ccw(self.u_face)
         rotate_face_cw(self.d_face)
+        self.moves_applied.append("y'")
+
 
     def y2_rotation(self):
         temp_f = self.f_face
@@ -1244,6 +1251,7 @@ class Cube:
         self.l_face = temp_r
         rotate_face_180(self.u_face)
         rotate_face_180(self.d_face)
+        self.moves_applied.append("y2")
 
     def x_rotation(self):
         temp_u = self.u_face
@@ -1256,6 +1264,7 @@ class Cube:
         self.f_face = temp_d
         rotate_face_cw(self.r_face)
         rotate_face_ccw(self.l_face)
+        self.moves_applied.append("x")
 
     def x_prime_rotation(self):
         temp_u = self.u_face
@@ -1268,6 +1277,7 @@ class Cube:
         self.f_face = temp_u
         rotate_face_ccw(self.r_face)
         rotate_face_cw(self.l_face)
+        self.moves_applied.append("x'")
 
     def x2_rotation(self):
         temp_u = self.u_face
@@ -1280,6 +1290,8 @@ class Cube:
         self.f_face = temp_b
         rotate_face_180(self.r_face)
         rotate_face_180(self.l_face)
+        self.moves_applied.append("x2")
+
 
     # takes a cube and returns a list of cubes with valid adjacent states
     def create_adj_list(self):

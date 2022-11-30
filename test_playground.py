@@ -4,7 +4,7 @@ from alg_handler import *
 
 
 cube = Cube()
-cube.y2_rotation()
+cube.x_rotation()
 cube_to_visual(cube)
 
 # # scramble

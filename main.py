@@ -174,4 +174,4 @@ def solve(scramble, move_types, max_depth):
 
 
 # testing
-print(solve("R,F,S", "R,F,S", 5))
+print(solve("R,U,R',x,U,R,U'", "R,U,x", 8))
