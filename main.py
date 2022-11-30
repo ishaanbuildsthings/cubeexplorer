@@ -14,7 +14,7 @@ import math
 # generates all possible solutions for a scramble, subject to the given
 # move_types and max_depth.
 # scramble and move_types must be delimited by ","
-def solve(scramble, move_types, max_depth, id, txn_ids, final_solutions):
+def solve(scramble, move_types, max_depth, id, txn_ids, solns):
     input_algorithm = scramble.split(",")
     allowed_moves = move_types.split(",")
     max_depth_allowed = int(max_depth)
@@ -50,6 +50,7 @@ def solve(scramble, move_types, max_depth, id, txn_ids, final_solutions):
 
     num_cubes = 0
     depth_next_queued = 0
+    final_solutions = set()
 
     # pruning
     odd_status = bool(max_depth_allowed % 2)
@@ -96,8 +97,10 @@ def solve(scramble, move_types, max_depth, id, txn_ids, final_solutions):
                     stage_2 = clean_up_intersection(cube.moves_applied, stage_1)
                     stage_3 = reverse_and_invert_move_list(stage_2)
 
-                    if stage_3 not in final_solutions:
-                        final_solutions.append(' '.join(stage_3))
+                    stage_3_s = ' '.join(stage_3)
+                    if stage_3_s not in final_solutions:
+                        final_solutions.add(stage_3_s)
+                        solns.append(stage_3_s)
 
             # misc
             # print_line()
@@ -151,15 +154,17 @@ def solve(scramble, move_types, max_depth, id, txn_ids, final_solutions):
                     stage_1 = reverse_and_invert_move_list(solved_halfway)
                     stage_2 = clean_up_intersection(scramble_cube.moves_applied, stage_1)
 
-                    if stage_2 not in final_solutions:
-                        final_solutions.append(' '.join(stage_2))
+                    stage_2_s = ' '.join(stage_2)
+                    if stage_2_s not in final_solutions:
+                        final_solutions.add(stage_2_s)
+                        solns.append(stage_2_s)
 
             # misc
             # print_line()
             scrambled_queue.put(scramble_cube)
 
     # remove txn id from set
-    final_solutions.append('DONE')
+    solns.append('DONE')
     txn_ids.remove(id)
 
 
